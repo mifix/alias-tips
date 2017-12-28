@@ -29,8 +29,15 @@ _alias_tips__preexec () {
 
   # Exit code returned from python script when we want to force use of aliases.
   local force_exit_code=10
+
+  if [[ ! $(which python) ]] && [[ $(which python3) ]]; then
+	python_cmd="python3"
+   else
+	python_cmd="python"
+  fi
+
   echo $shell_functions "\n" $git_aliases "\n" $shell_aliases | \
-    python ${_alias_tips__PLUGIN_DIR}/alias-tips.py $*
+    $python_cmd ${_alias_tips__PLUGIN_DIR}/alias-tips.py $*
   ret=$?
   if [[ $ret = $force_exit_code ]]; then kill -s INT $$ ; fi
 }
