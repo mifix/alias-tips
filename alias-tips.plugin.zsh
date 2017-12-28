@@ -30,7 +30,7 @@ _alias_tips__preexec () {
   # Exit code returned from python script when we want to force use of aliases.
   local force_exit_code=10
 
-  if [[ ! $(which python) ]] && [[ $(which python3) ]]; then
+  if [[ ! -e /usr/bin/python ]] && [[ -e /usr/bin/python3 ]]; then
 	python_cmd="python3"
    else
 	python_cmd="python"
